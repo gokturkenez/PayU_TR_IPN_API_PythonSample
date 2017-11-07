@@ -2,6 +2,8 @@
 Project: PayU Turkey IPN Python Sample
 Author: Gokturk Enez
 '''
+# Importing required libraries
+
 import collections
 import flask
 from datetime import datetime
@@ -33,8 +35,8 @@ def webhook_post_handler():
 
     for k, v in array.items():
         # Adding the UTF-8 byte length of each field value at the beginning of field value
-        hashstring += str(len(v)) + str(v)
-    print(hashstring)
+        hashstring += str(len(v.encode("utf8"))) + str(v)
+        print(hashstring)
 
     # Signature Calculation
     signature = hmac.new(secretkey.encode('utf-8'), hashstring.encode('utf-8'), hashlib.md5).hexdigest()
